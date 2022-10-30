@@ -5,6 +5,7 @@ import("hardhat/config").HardhatUserConfig;
 
 describe("D-BALL Basic", function () {
     beforeEach(async function () {
+        ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
         externalContracts = [];
         [owner, account] = await ethers.getSigners();
         contractFactory = await ethers.getContractFactory("Dball");
@@ -25,6 +26,13 @@ describe("D-BALL Basic", function () {
             expect(await externalContracts[i].name()).to.equal("Dummy");
             expect(await externalContracts[i].symbol()).to.equal("DUM");
         }
+    });
+
+    it("TargetContractが設定されていなくてもエラーとならない", async function () {
+        for (let i = 0; i < 7; i++) {
+            contract.setTargetContract(i, ZERO_ADDRESS);
+        }
+        count = await contract.connect(account).getNumberOfBalls(account.address);
     });
 
     it("所有している対象NFTの種類の数を取得できる", async function () {
@@ -101,6 +109,13 @@ describe("D-BALL Admin", function () {
         expect(Number(count)).to.equal(0);
     });
 
+    it("hoge", async function () {
+        for (let i = 0; i < 7; i++) {
+            contract.setTargetContract(i, ZERO_ADDRESS);
+        }
+        await contract.getTargetContracts();
+    });
+    
     it("ターゲット番号(3)にコントラクトアドレスを設定出来る", async function () {
         await contract.setTargetContract(3, dummyNFTContract.address);
         targetContracts = await contract.getTargetContracts();

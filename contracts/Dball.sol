@@ -47,6 +47,9 @@ contract Dball is Ownable, ERC721 {
     function getNumberOfBalls(address target_account_address) public view returns(uint256) {
         uint256 total;
         for(uint8 i = 0; i < 7; i++){
+            if(_targetContractaAddresses[i] == address(0)) {
+                continue;
+            }
             ERC721Contract erc721 = ERC721Contract(_targetContractaAddresses[i]);
             total += erc721.balanceOf(target_account_address);
         }
