@@ -38,7 +38,6 @@ describe("D-BALL Basic", function () {
         count = await contract.connect(account).getNumberOfBalls(account.address);
         console.log('count:', count);
         expect(count.toNumber()).to.equal(2);
-
     });
 });
     
