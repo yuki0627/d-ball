@@ -41,6 +41,7 @@ describe("D-BALL Basic", function () {
 
         targetContract = externalContracts[4];
         await targetContract.connect(account).nftMint();
+        await targetContract.connect(account).nftMint();
 
         console.log('account.address:', account.address);
         count = await contract.connect(account).getNumberOfBalls(account.address);
@@ -64,7 +65,7 @@ describe("D-BALL Basic", function () {
         // ドラゴンボール収集
         count = 4;
         for (i = 0; i < count; i++) {
-            targetContract = externalContracts[0];
+            targetContract = externalContracts[i];
             await targetContract.connect(account).nftMint();
         }
 
@@ -78,6 +79,7 @@ describe("D-BALL Basic", function () {
         let json = JSON.parse(decoded);
         decoded = json.image.replace("data:image/svg+xml;base64,", '');
         image = Buffer.from(decoded, 'base64').toString();
+        console.log('image:', image);
         exist = image.includes(`${count}</text>`)
         expect(exist).to.equal(true);
     });
@@ -115,7 +117,7 @@ describe("D-BALL Admin", function () {
         }
         await contract.getTargetContracts();
     });
-    
+
     it("ターゲット番号(3)にコントラクトアドレスを設定出来る", async function () {
         await contract.setTargetContract(3, dummyNFTContract.address);
         targetContracts = await contract.getTargetContracts();

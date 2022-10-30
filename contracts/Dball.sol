@@ -51,7 +51,9 @@ contract Dball is Ownable, ERC721 {
                 continue;
             }
             ERC721Contract erc721 = ERC721Contract(_targetContractaAddresses[i]);
-            total += erc721.balanceOf(target_account_address);
+            if(erc721.balanceOf(target_account_address) > 0) {
+                total++;
+            }
         }
         return total;
     }
