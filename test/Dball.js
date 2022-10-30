@@ -39,6 +39,40 @@ describe("D-BALL Basic", function () {
         console.log('count:', count);
         expect(count.toNumber()).to.equal(2);
     });
+
+    it("mint出来る", async function () {
+        contract.mint("hoge", "fuga");
+    });
+
+    it("tokenURI でオブジェクトを取得できる", async function () {
+        contract.mint("hoge", "fuga");
+        token = await contract.tokenURI(0);
+    });
+
+    it("tokenURI で取得した画像に所有数が表示されている", async function () {
+        // ドラゴンレーダー作成
+        await contract.connect(account).mint("hoge", "fuga");
+
+        // ドラゴンボール収集
+        count = 4;
+        for (i = 0; i < count; i++) {
+            targetContract = externalContracts[0];
+            await targetContract.connect(account).nftMint();
+        }
+
+        // ドラゴンレーダー取得
+        token = await contract.tokenURI(0);
+
+        // ドラゴンレーダーに収集した数が含まれているかどうか
+        token = token.replace(/^data:\w+\/\w+;base64,/, '');
+        decoded = Buffer.from(token, 'base64').toString();
+
+        let json = JSON.parse(decoded);
+        decoded = json.image.replace("data:image/svg+xml;base64,", '');
+        image = Buffer.from(decoded, 'base64').toString();
+        exist = image.includes(`${count}</text>`)
+        expect(exist).to.equal(true);
+    });
 });
     
 describe("D-BALL Admin", function () {
