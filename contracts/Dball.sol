@@ -58,6 +58,20 @@ contract Dball is Ownable, ERC721 {
         return total;
     }
 
+    function getBallCollection(address target_account_address) public view returns(bool[7] memory) {
+        bool[7] memory collection;
+        for(uint8 i = 0; i < 7; i++){
+            if(_targetContractaAddresses[i] == address(0)) {
+                continue;
+            }
+            ERC721Contract erc721 = ERC721Contract(_targetContractaAddresses[i]);
+            if(erc721.balanceOf(target_account_address) > 0) {
+                collection[i] = true;
+            }
+        }
+        return collection;
+    } 
+
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
         require(_exists(tokenId), "nonexsitent token" );
 

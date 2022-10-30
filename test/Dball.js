@@ -43,10 +43,24 @@ describe("D-BALL Basic", function () {
         await targetContract.connect(account).nftMint();
         await targetContract.connect(account).nftMint();
 
-        console.log('account.address:', account.address);
+        // console.log('account.address:', account.address);
         count = await contract.connect(account).getNumberOfBalls(account.address);
-        console.log('count:', count);
+        // console.log('count:', count);
         expect(count.toNumber()).to.equal(2);
+    });
+
+    it("所有しているBallCollectionを取得できる", async function () {
+        targetContract = externalContracts[0];
+        await targetContract.connect(account).nftMint();
+
+        targetContract = externalContracts[4];
+        await targetContract.connect(account).nftMint();
+
+        collection = await contract.connect(account).getBallCollection(account.address);
+        // console.log('collection:', collection);
+        expect(collection[0]).to.equal(true);
+        expect(collection[1]).to.equal(false);
+        expect(collection[4]).to.equal(true);
     });
 
     it("mint出来る", async function () {
@@ -79,7 +93,7 @@ describe("D-BALL Basic", function () {
         let json = JSON.parse(decoded);
         decoded = json.image.replace("data:image/svg+xml;base64,", '');
         image = Buffer.from(decoded, 'base64').toString();
-        console.log('image:', image);
+        // console.log('image:', image);
         exist = image.includes(`${count}</text>`)
         expect(exist).to.equal(true);
     });
