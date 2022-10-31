@@ -28,7 +28,7 @@ contract CollectBall is Ownable, ERC721 {
     }
 
     // TODO: onlyOwner
-    function mint(string calldata name, string calldata description) external {
+    function mint(string calldata name, string calldata description) external onlyOwner {
         uint256 tokenId = _names.length;
         _safeMint(msg.sender, tokenId);
         console.log("newTokenId: ", tokenId);
@@ -95,25 +95,26 @@ contract CollectBall is Ownable, ERC721 {
 
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
         require(_exists(tokenId), "nonexsitent token" );
+        return _createURI(tokenId);
+    }
 
-        //④    // name要素の作成
+    function _createURI(uint256 tokenId) internal view returns (string memory) {
         bytes memory bytesName = abi.encodePacked(
             '"name":"', _names[tokenId], '"'
         );
 
-        //⑤    // description要素の作成
         bytes memory bytesDesc = abi.encodePacked(
             '"description":"', _descriptions[tokenId], '"'
         );
 
-        //⑦    // image要素の作成：SVG要素をByte64エンコードしてコンテンツタイプの指定
+        // image要素の作成：SVG要素をByte64エンコードしてコンテンツタイプの指定
         bytes memory bytesImage = abi.encodePacked(
             '"image":"data:image/svg+xml;base64,',
             Base64.encode(_createSVG(tokenId)),
             '"'
         );
 
-        //⑧    /// jsonオブジェクトの作成
+        // jsonオブジェクトの作成
         bytes memory bytesObject = abi.encodePacked(
             '{',
                 bytesName, ',',
@@ -122,7 +123,7 @@ contract CollectBall is Ownable, ERC721 {
             '}'
         );
 
-        //⑨    // jsonオブジェクトをBase64エンコードしてコンテンツタイプの指定
+        // jsonオブジェクトをBase64エンコードしてコンテンツタイプの指定
         bytes memory bytesMetadata = abi.encodePacked(
             'data:application/json;base64,',
             Base64.encode(bytesObject)
