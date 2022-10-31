@@ -1,8 +1,7 @@
 const fs = require("fs");
 const main = async () => {
     addressList = [];
-    ContractCount = 1; // 1-7 いくつの種類のボールをデプロイするか
-    NftCount = 1; // 0~ ボールの種類ごと、いくつNFTをmintしておくか
+    NFT_COUNT = 5; // 0~ ボールの種類ごと、いくつNFTをmintしておくか
     // TODO: 外出し
     singleBalls = [];
     singleBalls[0] = '<svg viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg" style="enable-background:new 0 0 1400 980" width="350" height="350"><path style="fill:#fff;fill-opacity:0;pointer-events:none" d="M0 0h350v350H0z" fill="none"/><path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="fill:#e48424;fill-opacity:1;stroke:#e48424;paint-order:fill;stroke-width:3" transform="translate(-442.857 86.035) scale(.94051)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 214.577 51.474)"/></svg>';
@@ -14,28 +13,20 @@ const main = async () => {
     singleBalls[6] = '<svg viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg" style="enable-background:new 0 0 1400 980" width="350" height="350"><path style="fill:#fff;fill-opacity:0;pointer-events:none" d="M0 0h350v350H0z" fill="none"/><path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="fill:#e48424;fill-opacity:1;stroke:#e48424;paint-order:fill;stroke-width:3" transform="translate(-442.857 86.035) scale(.94051)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 214.577 25.536)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 188.536 38.319)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 190.323 62.624)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 238.365 63.624)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 239.462 38.684)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 214.577 51.474)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 215.42 76.83)"/></svg>';
 
     // デプロイ
-    for (i = 0; i < ContractCount; i++){
+    for (i = 0; i < singleBalls.length; i++){
         BallContractFactory = await ethers.getContractFactory("Ball");
         ballContract = await BallContractFactory.deploy(`TEST-D-BALL-${i+1}`, `TDB${i+1}`, singleBalls[i]);
         await ballContract.deployed();
         console.log(`ballContract${i} deployed to: https://goerli.etherscan.io/address/${ballContract.address}`);
         addressList.push(ballContract.address);
-        for (n = 0; n < NftCount; n++){
-            tx = await ballContract.nftMint(`D-BALL-${i + 1}`, `${n + 1}/${NftCount}`);
-            await tx.wait();
+        for (n = 0; n < NFT_COUNT; n++){
+            tx = await ballContract.nftMint(`D-BALL-${i + 1}`, `${n + 1}/${NFT_COUNT}`);
+            await tx.wait(); //TODO: 必要？
             console.log('NFT minted:', `BALL-${i + 1}: NFT-${n + 1}`);
         }
     }
-
-    // コントラクトアドレスの書き出し
-    fs.writeFileSync(`./collectBallSettings.js`,
-        `module.exports = {
-            contractName: 'tmp Collect Balls',
-            shortName: 'TCB',
-            targetAddresses: ${JSON. stringify(addressList)}
-        }
-        `
-    );
+    // TODO: コントラクトアドレスの書き出し
+    console.log('addressList:', addressList);
 };
 
 const deploy = async () => { 
