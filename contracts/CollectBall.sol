@@ -12,28 +12,36 @@ interface ERC721Contract {
 }
 
 contract CollectBall is Ownable, ERC721 {
-    address[7] _targetContractaAddresses;
+    uint16 constant private BALL_COUNT = 7;
+    address[BALL_COUNT] _targetContractaAddresses;
     // NFTが保存するデータ
     string[] private _names;
     string[] private _descriptions;
-    string[7] private _ball_svgs;
+    string[BALL_COUNT] private _ball_svgs;
     string private _dragon_svg;
     // string[] private _words;
 
-    constructor(string[7] memory data, string memory dragon) ERC721("D-BALL", "DBL") {
-        for(uint i = 0; i < 7; i++) {
-            _ball_svgs[i] = data[i];
+    constructor(
+        address[BALL_COUNT] memory targetContractaAddresses, 
+        string[BALL_COUNT] memory svgData, 
+        string memory dragon) 
+        ERC721("D-BALL", "DBL") {
+        for(uint i = 0; i < BALL_COUNT; i++) {
+            _targetContractaAddresses[i] = targetContractaAddresses[i];
+        }
+
+        for(uint i = 0; i < BALL_COUNT; i++) {
+            _ball_svgs[i] = svgData[i];
         }
         _dragon_svg = dragon;
     }
 
     function mint(string calldata name, string calldata description) external onlyOwner {
         uint256 tokenId = _names.length;
-        _safeMint(msg.sender, tokenId);
-        console.log("newTokenId: ", tokenId);
-
         _names.push(name);
         _descriptions.push(description);
+        _safeMint(msg.sender, tokenId);
+
         // _words.push(word);
     }
 
@@ -41,9 +49,9 @@ contract CollectBall is Ownable, ERC721 {
         _targetContractaAddresses[index] = _contractAddress;
     }
 
-    function getTargetContracts() public view returns(address[7] memory) {
-        address[7] memory res;
-        for(uint8 i = 0; i < 7; i++){
+    function getTargetContracts() public view returns(address[BALL_COUNT] memory) {
+        address[BALL_COUNT] memory res;
+        for(uint8 i = 0; i < BALL_COUNT; i++){
             res[i] = _targetContractaAddresses[i];
         }
         return res;
@@ -51,7 +59,7 @@ contract CollectBall is Ownable, ERC721 {
 
     function getNumberOfBalls(address target_account_address) public view returns(uint256) {
         uint256 total;
-        for(uint8 i = 0; i < 7; i++){
+        for(uint8 i = 0; i < BALL_COUNT; i++){
             if(_targetContractaAddresses[i] == address(0)) {
                 continue;
             }
@@ -66,7 +74,7 @@ contract CollectBall is Ownable, ERC721 {
     function getNumberOfBallsNftHas(uint tokenId) public view returns(uint256) {
         address tokenOwner = ownerOf(tokenId);
         uint256 total;
-        for(uint8 i = 0; i < 7; i++){
+        for(uint8 i = 0; i < BALL_COUNT; i++){
             if(_targetContractaAddresses[i] == address(0)) {
                 continue;
             }
@@ -78,9 +86,9 @@ contract CollectBall is Ownable, ERC721 {
         return total;
     }
 
-    function getBallCollection(address target_account_address) public view returns(bool[7] memory) {
-        bool[7] memory collection;
-        for(uint8 i = 0; i < 7; i++){
+    function getBallCollection(address target_account_address) public view returns(bool[BALL_COUNT] memory) {
+        bool[BALL_COUNT] memory collection;
+        for(uint8 i = 0; i < BALL_COUNT; i++){
             if(_targetContractaAddresses[i] == address(0)) {
                 continue;
             }
@@ -135,7 +143,7 @@ contract CollectBall is Ownable, ERC721 {
     function _createSVG(uint256 tokenId) internal view returns (bytes memory) {
         address tokenOwner = ownerOf(tokenId);
         uint256 numberOfBalls = getNumberOfBalls(tokenOwner);
-        bool[7] memory collection = getBallCollection(tokenOwner);
+        bool[BALL_COUNT] memory collection = getBallCollection(tokenOwner);
         string memory dragon;
 
         string memory ball_1 = '<path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="stroke:#e48524;paint-order:fill;stroke-width:3" transform="translate(-558.988 17.593) scale(.94051)" fill="none"/>';

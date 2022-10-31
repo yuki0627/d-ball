@@ -17,11 +17,11 @@ contract Ball is ERC721, ERC721Enumerable, Ownable {
         _svg = svg;
     }
     
-    function nftMint(string calldata name, string calldata description) public onlyOwner {
+    function mint(string calldata name, string calldata description) public onlyOwner {
         uint256 newTokenId = totalSupply();
         _names.push(name);
         _descriptions.push(description);
-        _mint(msg.sender, newTokenId);
+        _safeMint(msg.sender, newTokenId);
         // _setTokenURI(newTokenId, _createURI(newTokenId));
     }
 
