@@ -134,11 +134,9 @@ contract Dball is Ownable, ERC721 {
 
     function _createSVG(uint256 tokenId) internal view returns (bytes memory) {
         address tokenOwner = ownerOf(tokenId);
-        uint256 nuberOfBalls = getNumberOfBalls(tokenOwner);
-        // if(nuberOfBalls == 7) {
-        //     return abi.encodePacked(_dragon_svg);
-        // }
+        uint256 numberOfBalls = getNumberOfBalls(tokenOwner);
         bool[7] memory collection = getBallCollection(tokenOwner);
+        string memory dragon;
 
         string memory ball_1 = '<path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="stroke:#e48524;paint-order:fill;stroke-width:3" transform="translate(-558.988 17.593) scale(.94051)" fill="none"/>';
         if(collection[0] == true) {
@@ -175,6 +173,10 @@ contract Dball is Ownable, ERC721 {
             ball_7 = _ball_svgs[6];
         }
 
+        if(numberOfBalls == 7) {
+            dragon = _dragon_svg;
+        }
+
         bytes memory bytesSVG = abi.encodePacked(
             '<svg viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg" style="enable-background:new 0 0 1400 980" width="350" height="350">',
             '<path style="fill:#fff;fill-opacity:0;pointer-events:none" d="M0 0h350v350H0z" fill="none"/>',
@@ -185,6 +187,7 @@ contract Dball is Ownable, ERC721 {
             ball_5,
             ball_6,
             ball_7,
+            dragon,
             '</svg>'
         );
 
