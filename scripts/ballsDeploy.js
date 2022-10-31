@@ -20,7 +20,7 @@ const main = async () => {
         console.log(`ballContract${i} deployed to: https://goerli.etherscan.io/address/${ballContract.address}`);
         addressList.push(ballContract.address);
         for (n = 0; n < NFT_COUNT; n++){
-            tx = await ballContract.nftMint(`D-BALL-${i + 1}`, `${n + 1}/${NFT_COUNT}`);
+            tx = await ballContract.mint(`D-BALL-${i + 1}`, `${n + 1}/${NFT_COUNT}`);
             await tx.wait(); //TODO: 必要？
             console.log('NFT minted:', `BALL-${i + 1}: NFT-${n + 1}`);
         }
