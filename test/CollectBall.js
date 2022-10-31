@@ -1,8 +1,8 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-const BALL_CONTRACT_LIST = require("../ballContractList.js");
 const SETTINGS = require("../constant.js");
+const SINGLE_BALLS = require("../constantSingleBalls.js");
 
 import("hardhat/config").HardhatUserConfig;
 
@@ -14,14 +14,14 @@ describe("D-BALL Basic", function () {
         [owner, account] = await ethers.getSigners();
         
         contractFactory = await ethers.getContractFactory("CollectBall");
-        contract = await contractFactory.deploy(BALL_CONTRACT_LIST, SETTINGS.placedBalls, SETTINGS.dragon);
+        contract = await contractFactory.deploy(SETTINGS[0], SETTINGS[1], SETTINGS[2]);
         await contract.deployed();
 
         for (let i = 0; i < 7; i++) {
             contractFactory = await ethers.getContractFactory("Ball");
             contract_name = `D-Ball-${i + 1}`;
             short_name = `DB${i + 1}`;
-            ballContract = await contractFactory.deploy(contract_name, short_name, SETTINGS.singleBalls[i]);
+            ballContract = await contractFactory.deploy(contract_name, short_name, SINGLE_BALLS[i]);
             await ballContract.deployed();
             contract.setTargetContract(i, ballContract.address);
             externalContracts.push(ballContract);
@@ -127,10 +127,10 @@ describe("D-BALL Basic", function () {
         image = Buffer.from(decoded, 'base64').toString();
         console.log('image:', image);
         for (i = 0; i < count; i++) {
-            expect(image.includes(SETTINGS.placedBalls[i])).to.equal(true);
+            expect(image.includes(SETTINGS[1][i])).to.equal(true);
         }
         if (count == 7) {
-            expect(image.includes(SETTINGS.dragon)).to.equal(true);
+            expect(image.includes(SETTINGS[2])).to.equal(true);
         }
     });
 
