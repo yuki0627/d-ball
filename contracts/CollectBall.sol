@@ -11,7 +11,7 @@ interface ERC721Contract {
     function totalSupply() external view returns (uint256);
 }
 
-contract Dball is Ownable, ERC721 {
+contract CollectBall is Ownable, ERC721 {
     address[7] _targetContractaAddresses;
     // NFTが保存するデータ
     string[] private _names;

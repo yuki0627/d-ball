@@ -3,22 +3,18 @@ pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-// import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract DummyNFT is ERC721, ERC721Enumerable {
-    // using Counters for Counters.Counter;
-    // Counters.Counter private _tokenIds;
-
-    constructor() ERC721("Dummy", "DUM") {
+contract Ball is ERC721, ERC721Enumerable, Ownable {
+    constructor(string memory name, string memory short_name) ERC721(name, short_name) {
     }
     
-    function nftMint() public {
-        //  _tokenIds.increment();
-        // uint256 newTokenId = _tokenIds.current();
-        _mint(msg.sender, totalSupply());
+    function nftMint() public onlyOwner {
+        uint256 newTokenId = totalSupply();
+
+        _mint(msg.sender, newTokenId);
     }
 
-    
     function _beforeTokenTransfer(
         address from,
         address to,
