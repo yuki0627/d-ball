@@ -16,9 +16,15 @@ contract Dball is Ownable, ERC721 {
     // NFTが保存するデータ
     string[] private _names;
     string[] private _descriptions;
+    string[7] private _ball_svgs;
+    string private _dragon_svg;
     // string[] private _words;
 
-    constructor() ERC721("D-BALL", "DBL") {
+    constructor(string[7] memory data, string memory dragon) ERC721("D-BALL", "DBL") {
+        for(uint i = 0; i < 7; i++) {
+            _ball_svgs[i] = data[i];
+        }
+        _dragon_svg = dragon;
     }
 
     // TODO: onlyOwner
@@ -52,6 +58,21 @@ contract Dball is Ownable, ERC721 {
             }
             ERC721Contract erc721 = ERC721Contract(_targetContractaAddresses[i]);
             if(erc721.balanceOf(target_account_address) > 0) {
+                total++;
+            }
+        }
+        return total;
+    }
+
+    function getNumberOfBallsNftHas(uint tokenId) public view returns(uint256) {
+        address tokenOwner = ownerOf(tokenId);
+        uint256 total;
+        for(uint8 i = 0; i < 7; i++){
+            if(_targetContractaAddresses[i] == address(0)) {
+                continue;
+            }
+            ERC721Contract erc721 = ERC721Contract(_targetContractaAddresses[i]);
+            if(erc721.balanceOf(tokenOwner) > 0) {
                 total++;
             }
         }
@@ -112,23 +133,58 @@ contract Dball is Ownable, ERC721 {
     }
 
     function _createSVG(uint256 tokenId) internal view returns (bytes memory) {
-        address owner = ownerOf(tokenId);
-        uint256 nuberOfBalls = getNumberOfBalls(owner);
+        address tokenOwner = ownerOf(tokenId);
+        uint256 nuberOfBalls = getNumberOfBalls(tokenOwner);
+        // if(nuberOfBalls == 7) {
+        //     return abi.encodePacked(_dragon_svg);
+        // }
+        bool[7] memory collection = getBallCollection(tokenOwner);
 
-        // wordの部分を作っておく
-        bytes memory bytesWord = abi.encodePacked(
-            '<text x="175" y="290" text-anchor="middle" class="f">',
-            Strings.toString(nuberOfBalls),
-            '</text>'
-        );
+        string memory ball_1 = '<path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="stroke:#e48524;paint-order:fill;stroke-width:3" transform="translate(-558.988 17.593) scale(.94051)" fill="none"/>';
+        if(collection[0] == true) {
+            ball_1 = _ball_svgs[0];
+        }
+        
+        string memory ball_2 = '<path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="stroke:#e48524;paint-order:fill;stroke-width:3" transform="translate(-323.644 14.276) scale(.94051)" fill="none"/>';
+        if(collection[1] == true) {
+            ball_2 = _ball_svgs[1];
+        }
 
-        // SVGとしてまとめる
+        string memory ball_3 = '<path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="stroke:#e48524;paint-order:fill;stroke-width:3" transform="translate(-438.806 203.512) scale(.94051)" fill="none"/>';
+        if(collection[2] == true) {
+            ball_3 = _ball_svgs[2];
+        }
+
+        string memory ball_4 = '<path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="stroke:#e48524;paint-order:fill;stroke-width:3" transform="translate(-444.015 -31.442) scale(.94051)" fill="none"/>';
+        if(collection[3] == true) {
+            ball_4 = _ball_svgs[3];
+        }
+
+        string memory ball_5 = '<path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="stroke:#e48524;paint-order:fill;stroke-width:3" transform="translate(-559.177 146.22) scale(.94051)" fill="none"/>';
+        if(collection[4] == true) {
+            ball_5 = _ball_svgs[4];
+        }
+
+        string memory ball_6 = '<path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="stroke:#e48524;paint-order:fill;stroke-width:3" transform="translate(-321.908 145.063) scale(.94051)" fill="none"/>';
+        if(collection[5] == true) {
+            ball_6 = _ball_svgs[5];
+        }
+
+        string memory ball_7 = '<path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="stroke:#e48524;paint-order:fill;stroke-width:3" transform="translate(-442.857 86.035) scale(.94051)" fill="none"/>';
+        if(collection[6] == true) {
+            ball_7 = _ball_svgs[6];
+        }
+
         bytes memory bytesSVG = abi.encodePacked(
-            '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350">',
-            '<style> .f { font-family: serif; font-size:300px; fill:000000;} </style>',
-            '<rect x="0" y="0" width="350" height="350" fill="#000000" />',
-            '<rect x="10" y="10" width="330" height="330" fill="#ffffff" />',
-            bytesWord,
+            '<svg viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg" style="enable-background:new 0 0 1400 980" width="350" height="350">',
+            '<path style="fill:#fff;fill-opacity:0;pointer-events:none" d="M0 0h350v350H0z" fill="none"/>',
+            ball_1,
+            ball_2,
+            ball_3,
+            ball_4,
+            ball_5,
+            ball_6,
+            ball_7,
             '</svg>'
         );
 
