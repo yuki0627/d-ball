@@ -6,14 +6,24 @@ import("hardhat/config").HardhatUserConfig;
 describe("D-BALL Basic", function () {
     beforeEach(async function () {
         ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
+        singleBalls = [];
+        singleBalls[0] = '<svg viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg" style="enable-background:new 0 0 1400 980" width="350" height="350"><path style="fill:#fff;fill-opacity:0;pointer-events:none" d="M0 0h350v350H0z" fill="none"/><path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="fill:#e48424;fill-opacity:1;stroke:#e48424;paint-order:fill;stroke-width:3" transform="translate(-442.857 86.035) scale(.94051)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 214.577 51.474)"/></svg>';
+        singleBalls[1] = '<svg viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg" style="enable-background:new 0 0 1400 980" width="350" height="350"><path style="fill:#fff;fill-opacity:0;pointer-events:none" d="M0 0h350v350H0z" fill="none"/><path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="fill:#e48424;fill-opacity:1;stroke:#e48424;paint-order:fill;stroke-width:3" transform="translate(-442.857 86.035) scale(.94051)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 198.939 53.12)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 227.64 52.916)"/></svg>';
+        singleBalls[2] = '<svg viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg" style="enable-background:new 0 0 1400 980" width="350" height="350"><path style="fill:#fff;fill-opacity:0;pointer-events:none" d="M0 0h350v350H0z" fill="none"/><path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="fill:#e48424;fill-opacity:1;stroke:#e48424;paint-order:fill;stroke-width:3" transform="translate(-442.857 86.035) scale(.94051)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 199.939 60.12)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 228.64 59.916)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 213.452 38.055)"/></svg>';
+        singleBalls[3] = '<svg viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg" style="enable-background:new 0 0 1400 980" width="350" height="350"><path style="fill:#fff;fill-opacity:0;pointer-events:none" d="M0 0h350v350H0z" fill="none"/><path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="fill:#e48424;fill-opacity:1;stroke:#e48424;paint-order:fill;stroke-width:3" transform="translate(-442.857 86.035) scale(.94051)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 195.939 55.018)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 232.64 55.018)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 214.837 37.055)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 214.837 73.666)"/></svg>';
+        singleBalls[4] = '<svg viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg" style="enable-background:new 0 0 1400 980" width="350" height="350"><path style="fill:#fff;fill-opacity:0;pointer-events:none" d="M0 0h350v350H0z" fill="none"/><path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="fill:#e48424;fill-opacity:1;stroke:#e48424;paint-order:fill;stroke-width:3" transform="translate(-442.857 86.035) scale(.94051)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 190.522 48.601)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 237.604 49.601)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 214.386 30.381)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 228.927 74.215)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 199.361 74.034)"/></svg>';
+        singleBalls[5] = '<svg viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg" style="enable-background:new 0 0 1400 980" width="350" height="350"><path style="fill:#fff;fill-opacity:0;pointer-events:none" d="M0 0h350v350H0z" fill="none"/><path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="fill:#e48424;fill-opacity:1;stroke:#e48424;paint-order:fill;stroke-width:3" transform="translate(-442.857 86.035) scale(.94051)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 190.522 44.601)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 237.604 45.601)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 214.386 26.381)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 228.927 70.215)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 199.361 70.034)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 214.611 50.312)"/></svg>';
+        singleBalls[6] = '<svg viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg" style="enable-background:new 0 0 1400 980" width="350" height="350"><path style="fill:#fff;fill-opacity:0;pointer-events:none" d="M0 0h350v350H0z" fill="none"/><path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="fill:#e48424;fill-opacity:1;stroke:#e48424;paint-order:fill;stroke-width:3" transform="translate(-442.857 86.035) scale(.94051)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 214.577 25.536)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 188.536 38.319)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 190.323 62.624)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 238.365 63.624)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 239.462 38.684)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 214.577 51.474)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 215.42 76.83)"/></svg>';
+
         data = [];
-        for (i = 0; i < 7; i++){
-            data[i] = "hoge";
-        }
         data[0] = '<path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="stroke:#e48524;paint-order:fill;stroke-width:3" transform="translate(-558.988 17.593) scale(.94051)" fill="#e48524"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 98.545 -17.243)"/>';
+        
         data[1] = '<path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="stroke:#e48524;paint-order:fill;stroke-width:3" transform="translate(-323.644 14.276) scale(.94051)" fill="#e48524"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 318.115 -18.128)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 348.309 -18.128)"/>';
+        
         data[2] = '<path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="stroke:#e48524;paint-order:fill;stroke-width:3" transform="translate(-438.806 203.512) scale(.94051)" fill="#e48524"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 218.628 157.112)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 205.897 177.946)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 231.36 177.946)"/>';
+        
         data[3] = '<path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="stroke:#e48524;paint-order:fill;stroke-width:3" transform="translate(-444.015 -31.442) scale(.94051)" fill="#e48524"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 212.816 -84.258)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 193.059 -66.003)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 212.816 -47.22)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 232.466 -66.003)"/>';
+        
         data[4] = '<path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="stroke:#e48524;paint-order:fill;stroke-width:3" transform="translate(-559.177 146.22) scale(.94051)" fill="#e48524"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 98.258 88.51)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 74.216 104.293)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 82.003 130.599)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 112.045 130.599)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 121.142 104.659)"/>'
 
         data[5] = '<path class="st0" d="M652 46c27.6 0 50 22.4 50 50s-22.4 50-50 50-50-22.4-50-50 22.4-50 50-50z" style="stroke:#e48524;paint-order:fill;stroke-width:3" transform="translate(-321.908 145.063) scale(.94051)" fill="#e48524"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 336.841 86.036)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 312.8 101.818)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 320.587 128.124)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 350.628 128.124)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 359.726 102.184)"/><path d="m239 626.2 11.6 35.8h37.6l-30.4 22.1 11.6 35.8-30.4-22.1-30.4 22.1 11.6-35.8-30.4-22.1h37.6Z" class="st0" style="fill:#df3325;stroke:#000;stroke-opacity:0" transform="matrix(-.18503 0 0 .18503 336.841 109.974)"/>';
@@ -31,10 +41,10 @@ describe("D-BALL Basic", function () {
             contractFactory = await ethers.getContractFactory("Ball");
             contract_name = `D-Ball-${i + 1}`;
             short_name = `DB${i + 1}`;
-            dummyNFTContract = await contractFactory.deploy(contract_name, short_name);
-            await dummyNFTContract.deployed();
-            contract.setTargetContract(i, dummyNFTContract.address);
-            externalContracts.push(dummyNFTContract);
+            ballContract = await contractFactory.deploy(contract_name, short_name, singleBalls[i]);
+            await ballContract.deployed();
+            contract.setTargetContract(i, ballContract.address);
+            externalContracts.push(ballContract);
         }
     });
 
@@ -47,6 +57,22 @@ describe("D-BALL Basic", function () {
         }
     });
 
+    it("個別NFTにボールSVGがセットされている", async function () {
+        for (i = 0; i < externalContracts.length; i++) {
+            await externalContracts[i].nftMint("hoge", "fuga");
+            tokenURI = await externalContracts[i].tokenURI(0);
+
+            // ドラゴンレーダーに収集したボールが表示されている
+            token = tokenURI.replace(/^data:\w+\/\w+;base64,/, '');
+            decoded = Buffer.from(token, 'base64').toString();
+
+            let json = JSON.parse(decoded);
+            decoded = json.image.replace("data:image/svg+xml;base64,", '');
+            image = Buffer.from(decoded, 'base64').toString();
+            // console.log('image:', image);
+        }
+    });
+
     it("TargetContractが設定されていなくてもエラーとならない", async function () {
         for (let i = 0; i < 7; i++) {
             contract.setTargetContract(i, ZERO_ADDRESS);
@@ -56,13 +82,13 @@ describe("D-BALL Basic", function () {
 
     it("所有している対象NFTの種類の数を取得できる", async function () {
         targetContract = externalContracts[0];
-        await targetContract.nftMint();
+        await targetContract.nftMint("hoge", "fuga");
         await targetContract.transferFrom(owner.address, account.address, 0);
 
         targetContract = externalContracts[4];
-        await targetContract.nftMint();
+        await targetContract.nftMint("hoge", "fuga");
         await targetContract.transferFrom(owner.address, account.address, 0)
-        await targetContract.nftMint();
+        await targetContract.nftMint("hoge", "fuga");
         await targetContract.transferFrom(owner.address, account.address, 1)
 
         count = await contract.connect(account).getNumberOfBalls(account.address);
@@ -71,11 +97,11 @@ describe("D-BALL Basic", function () {
 
     it("所有しているBallCollectionを取得できる", async function () {
         targetContract = externalContracts[0];
-        await targetContract.nftMint();
+        await targetContract.nftMint("hoge", "fuga");
         await targetContract.transferFrom(owner.address, account.address, 0)
 
         targetContract = externalContracts[4];
-        await targetContract.nftMint();
+        await targetContract.nftMint("hoge", "fuga");
         await targetContract.transferFrom(owner.address, account.address, 0)
 
         collection = await contract.connect(account).getBallCollection(account.address);
@@ -103,7 +129,7 @@ describe("D-BALL Basic", function () {
         count = 7;
         for (i = 0; i < count; i++) {
             targetContract = externalContracts[i];
-            await targetContract.nftMint();
+            await targetContract.nftMint("hoge", "fuga");
             await targetContract.transferFrom(owner.address, account.address, 0);
         }
         
@@ -138,7 +164,7 @@ describe("D-BALL Basic", function () {
     });
 
     it("ERC721準拠のコントラクトの balanceOf を実行できる", async function () {
-        let count = await dummyNFTContract.balanceOf(owner.address);
+        let count = await ballContract.balanceOf(owner.address);
         expect(Number(count)).to.equal(0);
     });
 
@@ -150,27 +176,27 @@ describe("D-BALL Basic", function () {
     });
 
     it("ターゲット番号(3)にコントラクトアドレスを設定出来る", async function () {
-        await contract.setTargetContract(3, dummyNFTContract.address);
+        await contract.setTargetContract(3, ballContract.address);
         targetContracts = await contract.getTargetContracts();
-        expect(targetContracts[3]).to.equal(dummyNFTContract.address);
+        expect(targetContracts[3]).to.equal(ballContract.address);
     });
 
     it("オーナー以外は外部コントラクトアドレスを設定出来ない", async function () {
-        await expect(contract.connect(account).setTargetContract(3, dummyNFTContract.address)).to.be.revertedWith("Ownable: caller is not the owner");
+        await expect(contract.connect(account).setTargetContract(3, ballContract.address)).to.be.revertedWith("Ownable: caller is not the owner");
 
-        expect(targetContracts[3]).not.to.equal(dummyNFTContract.address);
-        await contract.connect(owner).setTargetContract(3, dummyNFTContract.address);
+        expect(targetContracts[3]).not.to.equal(ballContract.address);
+        await contract.connect(owner).setTargetContract(3, ballContract.address);
         targetContracts = await contract.getTargetContracts();
-        expect(targetContracts[3]).to.equal(dummyNFTContract.address);
+        expect(targetContracts[3]).to.equal(ballContract.address);
     });
 
     it("NFTを保有している対象コントラクトの数を取得できる", async function () {
-        await expect(contract.connect(account).setTargetContract(3, dummyNFTContract.address)).to.be.revertedWith("Ownable: caller is not the owner");
+        await expect(contract.connect(account).setTargetContract(3, ballContract.address)).to.be.revertedWith("Ownable: caller is not the owner");
 
-        expect(targetContracts[3]).not.to.equal(dummyNFTContract.address);
-        await contract.connect(owner).setTargetContract(3, dummyNFTContract.address);
+        expect(targetContracts[3]).not.to.equal(ballContract.address);
+        await contract.connect(owner).setTargetContract(3, ballContract.address);
         targetContracts = await contract.getTargetContracts();
-        expect(targetContracts[3]).to.equal(dummyNFTContract.address);
+        expect(targetContracts[3]).to.equal(ballContract.address);
     });
 });
     

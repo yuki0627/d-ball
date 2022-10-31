@@ -27,7 +27,6 @@ contract CollectBall is Ownable, ERC721 {
         _dragon_svg = dragon;
     }
 
-    // TODO: onlyOwner
     function mint(string calldata name, string calldata description) external onlyOwner {
         uint256 tokenId = _names.length;
         _safeMint(msg.sender, tokenId);
