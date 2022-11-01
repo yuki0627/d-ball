@@ -11,9 +11,10 @@ const alchemy = new Alchemy(settings);
 
 export default function Home() {
   const [image, setImage] = useState([])
+  const collectionAddress = "0x71165B3Bc6a6CF64Cb74581703b5FC85d14373F3"
   const fetchData = async () => {
     let metadata = await alchemy.nft.getNftMetadata(
-      "0x3C615Ff54EA197AaE70dF0df15517dDC680B0C1D",
+      collectionAddress,
       "1"
     )
     console.log('metadata:', metadata);
@@ -22,6 +23,21 @@ export default function Home() {
 
     console.log('decode:', decodeURIComponent(metadata.tokenUri));
     setImage(metadata.media[0].gateway);
+
+    // Flag to omit metadata
+    const omitMetadata = false;
+
+    // Get all NFTs
+    const { nfts } = await alchemy.nft.getNftsForContract(collectionAddress, {
+      omitMetadata: omitMetadata,
+    });
+
+    let i = 1;
+
+    for (let nft of nfts) {
+      console.log(`${i}. ${nft.rawMetadata.image}`);
+      i++;
+    }
   }
 
   useEffect(() => {
