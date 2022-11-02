@@ -1,11 +1,9 @@
 # D-BALL Project
 
-OpenSeaに散らばっている7種類のボールを集めるコレクション型NFTです。
+OpenSeaに散らばっている7種類のボールNFTを1つのホルダーNFTに収集します
 
-ボールを集めるとそのボールがホルダーに反映されます。  
-7種類集めると特別な画像(このデモでは龍)が出現します。
-
-**スカウターを入手して7種類のボールを集めよう！**
+集めたボールホルダーに反映されます。  
+7種類集めると特別な画像が出現します。
 
 ## 1. tech stacks
 
@@ -20,14 +18,14 @@ Ethereum Goerli testnet
 
 コントラクトは2種類あります
 
-- ホルダー
-- ボール
+- ホルダーNFT
+- ボールNFT
 
-### 3.1 ホルダー
+### 3.1 ホルダーNFT
 
 - 0x71165B3Bc6a6CF64Cb74581703b5FC85d14373F3
 
-### 3.2 ボール(7種類)
+### 3.2 ボールNFT(7種類)
 
 - 0x869C935bb152D77a7dfEb00439b9fE1831F6EE44
 - 0x661Ca7D531b0386fCD7FD177FbdfA0d3e9cD4c97
@@ -39,8 +37,8 @@ Ethereum Goerli testnet
 
 ## 4. CODE
 
-- ホルダー: contracts/CollectBall.sol
-- ボール: contracts/Ball.sol
+- ホルダーNFT: contracts/CollectBall.sol
+- ボールNFT: contracts/Ball.sol
 
 ## 5. テスト手順
 
