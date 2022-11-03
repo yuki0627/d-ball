@@ -42,7 +42,7 @@ describe("D-BALL Basic", function () {
             await externalContracts[i].mint("hoge", "fuga");
             tokenURI = await externalContracts[i].tokenURI(0);
 
-            // ドラゴンレーダーに収集したボールが表示されている
+            // ホルダーに収集したボールが表示されている
             token = tokenURI.replace(/^data:\w+\/\w+;base64,/, '');
             decoded = Buffer.from(token, 'base64').toString();
 
@@ -100,7 +100,7 @@ describe("D-BALL Basic", function () {
     });
 
     it("tokenURI に取得したボールが含まれている", async function () {
-        // ドラゴンレーダー作成を作成しaccountに渡す
+        // ホルダー作成を作成しaccountに渡す
         await contract.mint("hoge", "fuga");
         await contract.transferFrom(owner.address, account.address, 0)
 
@@ -113,12 +113,12 @@ describe("D-BALL Basic", function () {
             await targetContract.transferFrom(owner.address, account.address, 0);
         }
         
-        // ドラゴンレーダー取得
+        // ホルダー取得
         tokenId = 0;
         token = await contract.tokenURI(tokenId);
         collected_count = await contract.getNumberOfBallsNftHas(tokenId);
 
-        // ドラゴンレーダーに収集したボールが表示されている
+        // ホルダーに収集したボールが表示されている
         token = token.replace(/^data:\w+\/\w+;base64,/, '');
         decoded = Buffer.from(token, 'base64').toString();
 
@@ -135,8 +135,8 @@ describe("D-BALL Basic", function () {
     });
 
     it("トークンの名前とシンボルがセットされている", async function () {
-        expect(await contract.name()).to.equal("D-BALL");
-        expect(await contract.symbol()).to.equal("DBL");
+        expect(await contract.name()).to.equal("D-BALL-HOLDER");
+        expect(await contract.symbol()).to.equal("DBH");
     });
 
     it("デプロイアドレスがownerに設定されている", async function () {

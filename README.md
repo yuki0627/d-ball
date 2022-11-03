@@ -37,12 +37,12 @@ Ethereum Goerli testnet
 
 ## 4. CODE
 
-- ホルダーNFT: contracts/CollectBall.sol
+- ホルダーNFT: contracts/Holder.sol
 - ボールNFT: contracts/Ball.sol
 
 ## 5. テスト手順
 
-npx hardhat test test/CollectBall.js
+npx hardhat test test/Holder.js
 
 ## 6. 審査やテストのためにプロジェクトにアクセスする方法
 
