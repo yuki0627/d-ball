@@ -8,7 +8,7 @@ const main = async () => {
     // デプロイ
     for (i = 0; i < singleBalls.length; i++){
         BallContractFactory = await ethers.getContractFactory("Ball");
-        ballContract = await BallContractFactory.deploy(`TEST-D-BALL-${i+1}`, `TDB${i+1}`, SINGLE_BALLS[i]);
+        ballContract = await BallContractFactory.deploy(`D-BALL-${i+1}`, `DB${i+1}`, SINGLE_BALLS[i]);
         await ballContract.deployed();
         console.log(`ballContract${i} deployed to: https://goerli.etherscan.io/address/${ballContract.address}`);
         addressList.push(ballContract.address);

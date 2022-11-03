@@ -11,7 +11,7 @@ interface ERC721Contract {
     function totalSupply() external view returns (uint256);
 }
 
-contract CollectBall is Ownable, ERC721 {
+contract Holder is Ownable, ERC721 {
     uint16 constant private BALL_COUNT = 7;
     address[BALL_COUNT] _targetContractaAddresses;
     // NFTが保存するデータ
@@ -25,7 +25,7 @@ contract CollectBall is Ownable, ERC721 {
         address[BALL_COUNT] memory targetContractaAddresses, 
         string[BALL_COUNT] memory svgData, 
         string memory dragon) 
-        ERC721("D-BALL", "DBL") {
+        ERC721("D-BALL-HOLDER", "DBH") {
         for(uint i = 0; i < BALL_COUNT; i++) {
             _targetContractaAddresses[i] = targetContractaAddresses[i];
         }
