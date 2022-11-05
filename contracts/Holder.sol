@@ -17,26 +17,26 @@ contract Holder is Ownable, ERC721 {
     // NFTが保存するデータ
     string[] private _names;
     string[] private _descriptions;
-    string[BALL_COUNT] private _ball_svgs;
+    string[BALL_COUNT] private _number_svgs;
     string private _empty_svg;
-    string private _complete_svg;
+    string private _prise_svg;
     // string[] private _words;
 
     constructor(
         address[BALL_COUNT] memory targetContractaAddresses, 
-        string[BALL_COUNT] memory svgData, 
         string memory emptySvg,
-        string memory completeSvg) 
+        string[BALL_COUNT] memory nunberSvgs, 
+        string memory priseSvg) 
         ERC721("D-BALL-HOLDER", "DBH") {
         for(uint i = 0; i < BALL_COUNT; i++) {
             _targetContractaAddresses[i] = targetContractaAddresses[i];
         }
 
         for(uint i = 0; i < BALL_COUNT; i++) {
-            _ball_svgs[i] = svgData[i];
+            _number_svgs[i] = nunberSvgs[i];
         }
         _empty_svg = emptySvg;
-        _complete_svg = completeSvg;
+        _prise_svg = priseSvg;
     }
 
     function mint(string calldata name, string calldata description) external onlyOwner {
@@ -147,49 +147,50 @@ contract Holder is Ownable, ERC721 {
         address tokenOwner = ownerOf(tokenId);
         uint256 numberOfBalls = getNumberOfBalls(tokenOwner);
         bool[BALL_COUNT] memory collection = getBallCollection(tokenOwner);
-        string memory complete;
 
         string memory ball_1;
         if(collection[0] == true) {
-            ball_1 = _ball_svgs[0];
+            ball_1 = _number_svgs[0];
         }
         
         string memory ball_2;
         if(collection[1] == true) {
-            ball_2 = _ball_svgs[1];
+            ball_2 = _number_svgs[1];
         }
 
         string memory ball_3;
         if(collection[2] == true) {
-            ball_3 = _ball_svgs[2];
+            ball_3 = _number_svgs[2];
         }
 
         string memory ball_4;
         if(collection[3] == true) {
-            ball_4 = _ball_svgs[3];
+            ball_4 = _number_svgs[3];
         }
 
         string memory ball_5;
         if(collection[4] == true) {
-            ball_5 = _ball_svgs[4];
+            ball_5 = _number_svgs[4];
         }
 
         string memory ball_6;
         if(collection[5] == true) {
-            ball_6 = _ball_svgs[5];
+            ball_6 = _number_svgs[5];
         }
 
         string memory ball_7;
         if(collection[6] == true) {
-            ball_7 = _ball_svgs[6];
+            ball_7 = _number_svgs[6];
         }
 
+        string memory prize_svg;
         if(numberOfBalls == 7) {
-            complete = _complete_svg;
+            prize_svg = _prise_svg;
         }
 
         bytes memory bytesSVG = abi.encodePacked(
             '<svg id="master-artboard" viewBox="0 0 350 350" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" style="enable-background:new 0 0 1400 980" width="350" height="350"><path id="ee-background" style="fill:#fff;fill-opacity:0;pointer-events:none" d="M0 0h350v350H0z"/><defs><style id="ee-google-fonts">@import url(https://fonts.googleapis.com/css?family=Acme:400);</style></defs>',
+            _empty_svg,
             ball_1,
             ball_2,
             ball_3,
@@ -197,7 +198,7 @@ contract Holder is Ownable, ERC721 {
             ball_5,
             ball_6,
             ball_7,
-            complete,
+            prize_svg,
             '</svg>'
         );
 

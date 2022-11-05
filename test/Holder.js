@@ -125,12 +125,12 @@ describe("D-BALL Basic", function () {
         let json = JSON.parse(decoded);
         decoded = json.image.replace("data:image/svg+xml;base64,", '');
         image = Buffer.from(decoded, 'base64').toString();
-        console.log('image:', image);
+        // console.log('image:', image);
         for (i = 0; i < count; i++) {
-            expect(image.includes(SETTINGS[1][i])).to.equal(true);
+            expect(image.includes(SETTINGS[2][i])).to.equal(true);
         }
         if (count == 7) {
-            expect(image.includes(SETTINGS[2])).to.equal(true);
+            expect(image.includes(SETTINGS[3])).to.equal(true);
         }
     });
 
