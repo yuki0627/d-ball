@@ -14,7 +14,7 @@ describe("D-BALL Basic", function () {
         [owner, account] = await ethers.getSigners();
         
         contractFactory = await ethers.getContractFactory("Holder");
-        contract = await contractFactory.deploy(SETTINGS[0], SETTINGS[1], SETTINGS[2]);
+        contract = await contractFactory.deploy(SETTINGS[0], SETTINGS[1], SETTINGS[2], SETTINGS[3]);
         await contract.deployed();
 
         for (let i = 0; i < 7; i++) {

@@ -5,7 +5,8 @@ const SETTINGS = require("../constant.js");
 const main = async () => {
 
     contractFactory = await ethers.getContractFactory("Holder");
-    contract = await contractFactory.deploy(BALL_CONTRACT_LIST, SETTINGS.placedBalls, SETTINGS.dragon);
+    // TODO: 修正
+    contract = await contractFactory.deploy(BALL_CONTRACT_LIST, SETTING.emptyBalls, SETTINGS.placedBalls, SETTINGS.dragon);
     await contract.deployed();
     // TODO: コントラクトアドレスの書き出し
     console.log(`contract deployed to: https://goerli.etherscan.io/address/${contract.address}`);
