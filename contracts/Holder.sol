@@ -27,7 +27,7 @@ contract Holder is Ownable, ERC721 {
         string memory emptySvg,
         string[BALL_COUNT] memory nunberSvgs, 
         string memory priseSvg) 
-        ERC721("D-BALL-HOLDER", "DBH") {
+        ERC721("E-BALL-HOLDER", "EBH") {
         for(uint i = 0; i < BALL_COUNT; i++) {
             _targetContractaAddresses[i] = targetContractaAddresses[i];
         }

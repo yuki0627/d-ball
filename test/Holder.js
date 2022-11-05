@@ -135,8 +135,8 @@ describe("D-BALL Basic", function () {
     });
 
     it("トークンの名前とシンボルがセットされている", async function () {
-        expect(await contract.name()).to.equal("D-BALL-HOLDER");
-        expect(await contract.symbol()).to.equal("DBH");
+        expect(await contract.name()).to.equal("E-BALL-HOLDER");
+        expect(await contract.symbol()).to.equal("EBH");
     });
 
     it("デプロイアドレスがownerに設定されている", async function () {

@@ -5,15 +5,18 @@ const main = async () => {
     addressList = [];
     NFT_COUNT = 5; // 0~ ボールの種類ごと、いくつNFTをmintしておくか
 
+    if (SINGLE_BALLS.length != 7) {
+        throw ("想定外のボール数");
+    }
     // デプロイ
-    for (i = 0; i < singleBalls.length; i++){
+    for (i = 0; i < SINGLE_BALLS.length; i++){
         BallContractFactory = await ethers.getContractFactory("Ball");
-        ballContract = await BallContractFactory.deploy(`D-BALL-${i+1}`, `DB${i+1}`, SINGLE_BALLS[i]);
+        ballContract = await BallContractFactory.deploy(`E-BALL-${i+1}`, `EB${i+1}`, SINGLE_BALLS[i]);
         await ballContract.deployed();
         console.log(`ballContract${i} deployed to: https://goerli.etherscan.io/address/${ballContract.address}`);
         addressList.push(ballContract.address);
         for (n = 0; n < NFT_COUNT; n++){
-            tx = await ballContract.mint(`D-BALL-${i + 1}`, `${n + 1}/${NFT_COUNT}`);
+            tx = await ballContract.mint(`E-BALL-${i + 1}`, `${n + 1}/${NFT_COUNT}`);
             await tx.wait(); //TODO: 必要？
             console.log('NFT minted:', `BALL-${i + 1}: NFT-${n + 1}`);
         }
