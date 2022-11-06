@@ -1,4 +1,4 @@
-# D-BALL Project
+# E-BALL Project
 
 フルオンチェーンで遊べるNFT収集
 
