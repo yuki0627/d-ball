@@ -1,9 +1,30 @@
 # D-BALL Project
 
-OpenSeaに散らばっている7種類のボールNFTを1つのホルダーNFTに収集します
+フルオンチェーンで遊べるNFT収集
 
-集めたボールがホルダーに反映されます。  
-7種類集めると特別な画像が出現します。
+自分のウォレットを知らないサイトに繋ぐのって怖くないですか？  
+E-BALLはOpenSea上(Raribleなどでも)で収集対象NFT集めるフルオンチェーンのNFTプロジェクトです。  
+収集対象のアイテムNFTが自分のウォレットに入るとホルダーと呼ばれるNFTがOpenSeaで変化します。
+
+## 遊び方
+
+1. ホルダーと呼ばれるNFTを入手します
+2. アイテムと呼ばれるNFTを入手します
+
+取得したアイテムに応じてホルダーの状態が変化します。
+ホルダーやアイテムはマーケトップレイスで入手したり誰かにエアドロップしてもらったりして収集してください。
+
+[ホルダーの入手先](https://testnets.opensea.io/collection/e-ball-holder)
+
+[アイテムの入手先(7つのコントラクトに分かれています)] (https://testnets.opensea.io/0x1F7f21cd01E7E9dB4F848BF329A2dCcE2DC405b8)
+
+発展した利用ケース
+
+- シリーズ系NFTの販売促進
+- ラジオ体操的な勉強会POAPスタンプカード
+- 学習の進捗に応じたアイテムの配布
+- NFT宝探し
+- NFTを活用したゲームなど
 
 ## 1. tech stacks
 
@@ -19,26 +40,26 @@ Ethereum Goerli testnet
 コントラクトは2種類あります
 
 - ホルダーNFT
-- ボールNFT
+- アイテムNFT
 
 ### 3.1 ホルダーNFT
 
-- 0x71165B3Bc6a6CF64Cb74581703b5FC85d14373F3
+- 0x288c36964aaad56e2545d47AE81815416183056B
 
-### 3.2 ボールNFT(7種類)
+### 3.2 アイテムNFT(7種類)
 
-- 0x869C935bb152D77a7dfEb00439b9fE1831F6EE44
-- 0x661Ca7D531b0386fCD7FD177FbdfA0d3e9cD4c97
-- 0x430FDF0991bd47dA8927BAb9eBfA937Dcb8dA528
-- 0xB98286d7932e4eEaa5541f76A3ADde9892E3E8D3
-- 0xdBB38d0D31394CE687d285958563a7abB05e45aC
-- 0x5dcdad37cfc26d850af28f6cfba78a6f6671ed07
-- 0x4D74597fd58501353f19994650B6E40a18c37ddf
+- 0xB2C58273a3D65245CDEa6cA3cD9C86Bd278106c2,
+- 0x33fEA4cD902f64F3374e008DC88D3e58391deE2D,
+- 0xB6a12cedF1f86fa973e4C067b01cA35185Dd3d30,
+- 0xb685c42379eAd23FaCE4aE2b789598950ecaBd21,
+- 0xED28Ab26d9542a3A5F01CA7d9D4DA1f0c7D4bDC2,
+- 0xDf2C9DdbDC0312345d101ee95BdF46f2097eB63d,
+- 0x206725eEC40478a1444202AB548dE55C07D47e0B
 
 ## 4. CODE
 
 - ホルダーNFT: contracts/Holder.sol
-- ボールNFT: contracts/Ball.sol
+- アイテムNFT: contracts/Ball.sol
 
 ## 5. テスト手順
 
@@ -46,5 +67,5 @@ npx hardhat test test/Holder.js
 
 ## 6. 審査やテストのためにプロジェクトにアクセスする方法
 
-- [ホルダーの購入先 (Goerliテストネット)](https://testnets.opensea.io/collection/d-ball-v3)
-- [ボールの購入先(Goerliテストネット)](https://testnets.opensea.io/0x52C4e86EfdF4e0b7a8b2aa051cf9057D7a7f7d25)
+- [ホルダーの購入先 (Goerliテストネット)](https://testnets.opensea.io/collection/e-ball-holder)
+- [ボールの購入先(Goerliテストネット)](https://testnets.opensea.io/0x1F7f21cd01E7E9dB4F848BF329A2dCcE2DC405b8)
