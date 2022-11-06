@@ -14,7 +14,7 @@ describe("D-BALL Basic", function () {
         [owner, account] = await ethers.getSigners();
         
         contractFactory = await ethers.getContractFactory("Holder");
-        contract = await contractFactory.deploy(SETTINGS[0], SETTINGS[1], SETTINGS[2]);
+        contract = await contractFactory.deploy(SETTINGS[0], SETTINGS[1], SETTINGS[2], SETTINGS[3]);
         await contract.deployed();
 
         for (let i = 0; i < 7; i++) {
@@ -125,18 +125,18 @@ describe("D-BALL Basic", function () {
         let json = JSON.parse(decoded);
         decoded = json.image.replace("data:image/svg+xml;base64,", '');
         image = Buffer.from(decoded, 'base64').toString();
-        console.log('image:', image);
+        // console.log('image:', image);
         for (i = 0; i < count; i++) {
-            expect(image.includes(SETTINGS[1][i])).to.equal(true);
+            expect(image.includes(SETTINGS[2][i])).to.equal(true);
         }
         if (count == 7) {
-            expect(image.includes(SETTINGS[2])).to.equal(true);
+            expect(image.includes(SETTINGS[3])).to.equal(true);
         }
     });
 
     it("トークンの名前とシンボルがセットされている", async function () {
-        expect(await contract.name()).to.equal("D-BALL-HOLDER");
-        expect(await contract.symbol()).to.equal("DBH");
+        expect(await contract.name()).to.equal("E-BALL-HOLDER");
+        expect(await contract.symbol()).to.equal("EBH");
     });
 
     it("デプロイアドレスがownerに設定されている", async function () {
