@@ -14,11 +14,13 @@ E-BALLはOpenSea上(Raribleなどでも)で収集対象NFT集めるフルオン�
 取得したアイテムに応じてホルダーの状態が変化します。
 ホルダーやアイテムはマーケトップレイスで入手したり誰かにエアドロップしてもらったりして収集してください。
 
-[ホルダーの入手先](https://testnets.opensea.io/collection/e-ball-holder)
+- [ホルダーの入手先](https://testnets.opensea.io/collection/e-ball-holder)
+- [アイテムの入手先(7つのコントラクトに分かれています)](https://testnets.opensea.io/0x1F7f21cd01E7E9dB4F848BF329A2dCcE2DC405b8)
 
-[アイテムの入手先(7つのコントラクトに分かれています)] (https://testnets.opensea.io/0x1F7f21cd01E7E9dB4F848BF329A2dCcE2DC405b8)
+## 発展した利用ケース
 
-発展した利用ケース
+アイテムNFTはどんなNFTでも大丈夫です。  
+ホルダーNFTに対象アイテムNFTを設定します。
 
 - シリーズ系NFTの販売促進
 - ラジオ体操的な勉強会POAPスタンプカード
@@ -39,8 +41,8 @@ Ethereum Goerli testnet
 
 コントラクトは2種類あります
 
-- ホルダーNFT
-- アイテムNFT
+- ホルダーNFT ./contracts/Holder.sol
+- アイテムNFT ./contracts/Ball.sol
 
 ### 3.1 ホルダーNFT
 
